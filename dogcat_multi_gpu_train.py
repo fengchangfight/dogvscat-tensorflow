@@ -13,11 +13,11 @@
 # limitations under the License.
 # ==============================================================================
 
-"""A binary to train CIFAR-10 using multiple GPUs with synchronous updates.
+"""A binary to train dogcat using multiple GPUs with synchronous updates.
 
 Accuracy:
-cifar10_multi_gpu_train.py achieves ~86% accuracy after 100K steps (256
-epochs of data) as judged by cifar10_eval.py.
+dogcat_multi_gpu_train.py achieves ~86% accuracy after 100K steps (256
+epochs of data) as judged by dogcat_eval.py.
 
 Speed: With batch_size 128.
 
@@ -30,7 +30,7 @@ System        | Step Time (sec/batch)  |     Accuracy
 4 Tesla K20m  | ~0.10                  | ~84% at 30K steps
 
 Usage:
-Please see the tutorial and website for how to download the CIFAR-10
+Please see the tutorial and website for how to download the dogcat
 data set, compile the program and train the model.
 
 http://tensorflow.org/tutorials/deep_cnn/
@@ -51,7 +51,7 @@ import dogcat
 
 FLAGS = tf.app.flags.FLAGS
 
-tf.app.flags.DEFINE_string('train_dir', '/tmp/cifar10_train',
+tf.app.flags.DEFINE_string('train_dir', '/tmp/dogcat_train',
                            """Directory where to write event logs """
                            """and checkpoint.""")
 tf.app.flags.DEFINE_integer('max_steps', 1000000,
@@ -63,10 +63,10 @@ tf.app.flags.DEFINE_boolean('log_device_placement', False,
 
 
 def tower_loss(scope, images, labels):
-  """Calculate the total loss on a single tower running the CIFAR model.
+  """Calculate the total loss on a single tower running the dogcat model.
 
   Args:
-    scope: unique prefix string identifying the CIFAR tower, e.g. 'tower_0'
+    scope: unique prefix string identifying the dogcat tower, e.g. 'tower_0'
     images: Images. 4D tensor of shape [batch_size, height, width, 3].
     labels: Labels. 1D tensor of shape [batch_size].
 
@@ -137,7 +137,7 @@ def average_gradients(tower_grads):
 
 
 def train():
-  """Train CIFAR-10 for a number of steps."""
+  """Train dogcat for a number of steps."""
   with tf.Graph().as_default(), tf.device('/cpu:0'):
     # Create a variable to count the number of train() calls. This equals the
     # number of batches processed * FLAGS.num_gpus.
@@ -266,10 +266,6 @@ def train():
 
 
 def main(argv=None):  # pylint: disable=unused-argument
-  dogcat.maybe_download_and_extract()
-  if tf.gfile.Exists(FLAGS.train_dir):
-    tf.gfile.DeleteRecursively(FLAGS.train_dir)
-  tf.gfile.MakeDirs(FLAGS.train_dir)
   train()
 
 
