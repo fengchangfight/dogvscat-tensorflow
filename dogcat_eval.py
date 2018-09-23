@@ -53,7 +53,7 @@ tf.app.flags.DEFINE_string('checkpoint_dir', '/tmp/dogcat_train',
                            """Directory where to read model checkpoints.""")
 tf.app.flags.DEFINE_integer('eval_interval_secs', 60 * 5,
                             """How often to run the eval.""")
-tf.app.flags.DEFINE_integer('num_examples', 10000,
+tf.app.flags.DEFINE_integer('num_examples', 10,
                             """Number of examples to run.""")
 tf.app.flags.DEFINE_boolean('run_once', False,
                          """Whether to run eval only once.""")
@@ -146,10 +146,6 @@ def evaluate():
 
 
 def main(argv=None):  # pylint: disable=unused-argument
-  dogcat.maybe_download_and_extract()
-  if tf.gfile.Exists(FLAGS.eval_dir):
-    tf.gfile.DeleteRecursively(FLAGS.eval_dir)
-  tf.gfile.MakeDirs(FLAGS.eval_dir)
   evaluate()
 
 

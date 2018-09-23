@@ -172,10 +172,6 @@ def distorted_inputs(data_dir, batch_size):
   onlyfiles = [f for f in listdir(data_dir) if (isfile(join(data_dir, f)) and f.endswith('.jpg')) ]
   filepaths = [join(data_dir, f) for f in onlyfiles]
   labels = [label_by_name(f) for f in onlyfiles]
-  print("=======")
-  print(filepaths)
-  print(labels)
-  print("------")
   # Create a queue that produces the filenames to read.
   # filenames_queue = tf.train.string_input_producer(filepaths)
   # labels_queue = tf.train.string_input_producer(labels)
@@ -244,22 +240,23 @@ def inputs(eval_data, data_dir, batch_size):
     labels: Labels. 1D tensor of [batch_size] size.
   """
   if not eval_data:
-
     onlyfiles = [f for f in listdir(data_dir) if (isfile(join(data_dir, f)) and f.endswith('.jpg')) ]
-    filenames = [join(data_dir, f) for f in onlyfiles]
+    filepaths = [join(data_dir, f) for f in onlyfiles]
+    labels = [label_by_name(f) for f in onlyfiles]
     # Create a queue that produces the filenames to read.
     num_examples_per_epoch = NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN
   else:
     onlyfiles = [f for f in listdir(data_dir+"/test") if (isfile(join(data_dir+"/test", f)) and f.endswith('.jpg')) ]
-    filenames = [join(data_dir+"/test", f) for f in onlyfiles]
+    filepaths = [join(data_dir+"/test", f) for f in onlyfiles]
+    labels = [label_by_name(f) for f in onlyfiles]
     num_examples_per_epoch = NUM_EXAMPLES_PER_EPOCH_FOR_EVAL
 
   with tf.name_scope('input'):
     # Create a queue that produces the filenames to read.
-    filename_queue = tf.train.string_input_producer(filenames)
+    input_queue = tf.train.slice_input_producer([filepaths, labels],shuffle=False)
 
     # Read examples from files in the filename queue.
-    read_input = read_dogcat(filename_queue)
+    read_input = read_dogcat(input_queue)
     reshaped_image = tf.cast(read_input.uint8image, tf.float32)
 
     height = IMAGE_SIZE
