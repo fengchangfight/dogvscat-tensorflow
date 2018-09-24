@@ -226,6 +226,16 @@ def distorted_inputs(data_dir, batch_size):
                                          min_queue_examples, batch_size,
                                          shuffle=True)
 
+def predict_input_get_resized_image(path):
+    file_contents = tf.read_file(path)
+    # result.key, value = reader.read(input_queue[0])
+    record_bytes = tf.image.decode_jpeg(file_contents, channels=3)
+    resized_images = tf.image.resize_images(record_bytes, (IMAGE_SIZE, IMAGE_SIZE), method=0)
+    float_image = tf.image.per_image_standardization(resized_images)
+
+    # Set the shapes of tensors.
+    float_image.set_shape([IMAGE_SIZE, IMAGE_SIZE, 3])
+    return float_image
 
 def inputs(eval_data, data_dir, batch_size):
   """Construct input for dogcat evaluation using the Reader ops.

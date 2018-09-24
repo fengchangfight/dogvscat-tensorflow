@@ -156,6 +156,9 @@ def distorted_inputs():
     labels = tf.cast(labels, tf.float16)
   return images, labels
 
+def predict_input_get_resized_image(path):
+    images = dogcat_input.predict_input_get_resized_image(path)
+    return images
 
 def inputs(eval_data):
   """Construct input for dogcat evaluation using the Reader ops.
