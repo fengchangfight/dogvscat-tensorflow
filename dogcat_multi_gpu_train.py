@@ -51,7 +51,7 @@ import dogcat
 
 FLAGS = tf.app.flags.FLAGS
 
-tf.app.flags.DEFINE_string('train_dir', '/tmp/dogcat_train',
+tf.app.flags.DEFINE_string('train_dir', '/input/dogcat_train',
                            """Directory where to write event logs """
                            """and checkpoint.""")
 tf.app.flags.DEFINE_integer('max_steps', 1000000,

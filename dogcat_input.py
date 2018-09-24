@@ -33,8 +33,8 @@ IMAGE_SIZE = 300
 
 # Global constants describing the dogcat data set.
 NUM_CLASSES = 2
-NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN = 20
-NUM_EXAMPLES_PER_EPOCH_FOR_EVAL = 10
+NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN = 25000
+NUM_EXAMPLES_PER_EPOCH_FOR_EVAL = 12500 
 
 # ==fcnotes==called in distorted_inputs and inputs
 def read_dogcat(input_queue):

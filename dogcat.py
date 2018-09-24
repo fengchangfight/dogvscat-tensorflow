@@ -48,9 +48,9 @@ import dogcat_input
 FLAGS = tf.app.flags.FLAGS
 
 # Basic model parameters.
-tf.app.flags.DEFINE_integer('batch_size', 2,
+tf.app.flags.DEFINE_integer('batch_size', 70,
                             """Number of images to process in a batch.""")
-tf.app.flags.DEFINE_string('data_dir', '/Users/xiefengchang/test/b/dogvscats/trainsmall',
+tf.app.flags.DEFINE_string('data_dir', '/input/dcdata/train',
                            """Path to the dog cat data directory.""")
 tf.app.flags.DEFINE_boolean('use_fp16', False,
                             """Train the model using fp16.""")
